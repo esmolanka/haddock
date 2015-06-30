@@ -697,8 +697,8 @@ ppSideBySideField subdocs unicode (ConDeclField names ltype _) =
 -- ppHsFullConstr :: HsConDecl -> LaTeX
 -- ppHsFullConstr (HsConDecl _ nm tvs ctxt typeList doc) =
 --      declWithDoc False doc (
--- 	hsep ((ppHsConstrHdr tvs ctxt +++
--- 		ppHsBinder False nm) : map ppHsBangType typeList)
+--      hsep ((ppHsConstrHdr tvs ctxt +++
+--              ppHsBinder False nm) : map ppHsBangType typeList)
 --       )
 -- ppHsFullConstr (HsRecDecl _ nm tvs ctxt fields doc) =
 --    td << vanillaTable << (
@@ -709,15 +709,15 @@ ppSideBySideField subdocs unicode (ConDeclField names ltype _) =
 --
 --   where hdr = declBox (ppHsConstrHdr tvs ctxt +++ ppHsBinder False nm)
 --
--- 	constr_doc
--- 	  | isJust doc = docBox (docToLaTeX (fromJust doc))
--- 	  | otherwise  = LaTeX.emptyTable
+--      constr_doc
+--        | isJust doc = docBox (docToLaTeX (fromJust doc))
+--        | otherwise  = LaTeX.emptyTable
 --
--- 	fields_html =
--- 	   td <<
--- 	      table ! [width "100%", cellpadding 0, cellspacing 8] << (
--- 		   aboves (map ppFullField (concat (map expandField fields)))
--- 		)
+--      fields_html =
+--         td <<
+--            table ! [width "100%", cellpadding 0, cellspacing 8] << (
+--                 aboves (map ppFullField (concat (map expandField fields)))
+--              )
 -- -}
 --
 -- ppShortField :: Bool -> Bool -> ConDeclField DocName -> LaTeX
@@ -731,7 +731,7 @@ ppSideBySideField subdocs unicode (ConDeclField names ltype _) =
 -- ppFullField :: HsFieldDecl -> LaTeX
 -- ppFullField (HsFieldDecl [n] ty doc)
 --   = declWithDoc False doc (
--- 	ppHsBinder False n <+> dcolon <+> ppHsBangType ty
+--      ppHsBinder False n <+> dcolon <+> ppHsBangType ty
 --     )
 -- ppFullField _ = error "ppFullField"
 --
