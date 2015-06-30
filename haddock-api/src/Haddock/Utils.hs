@@ -53,7 +53,8 @@ module Haddock.Utils (
   out,
 
   -- * System tools
-  getProcessID
+  getProcessID,
+  copyFile'
  ) where
 
 
@@ -72,6 +73,7 @@ import qualified Data.Map as Map hiding ( Map )
 import Data.IORef ( IORef, newIORef, readIORef )
 import Data.List ( isSuffixOf )
 import Data.Maybe ( mapMaybe )
+import System.Directory (copyFile)
 import System.Environment ( getProgName )
 import System.Exit
 import System.IO ( hPutStr, stderr )
@@ -82,6 +84,8 @@ import Distribution.ReadE
 
 #ifndef mingw32_HOST_OS
 import qualified System.Posix.Internals
+#else
+import System.IO ( withBinaryFile, IOMode(..), hGetContents )
 #endif
 
 import MonadUtils ( MonadIO(..) )
@@ -476,4 +480,22 @@ foreign import ccall unsafe "_getpid" getProcessID :: IO Int -- relies on Int ==
 #else
 getProcessID :: IO Int
 getProcessID = fmap fromIntegral System.Posix.Internals.c_getpid
+#endif
+
+copyFile' :: FilePath -> FilePath -> IO ()
+#ifdef mingw32_HOST_OS
+-- NB: On Windows copyFile also copies file attributes. It is
+-- dangerous when distribution of Haddock is marked as
+-- read-only. Copied resource files would be also read-only in target
+-- directory. Since it is forbidden to unlink read-only files on
+-- Windows, having read-only files crashes cabal-install. It builds
+-- packages in temporary directory and then cannot clean it up. It is
+-- reasonable to have all files in target directory with default
+-- attributes: both generated and files copied as is.
+copyFile' src dst = do
+  withBinaryFile src ReadMode $ \s ->
+    withBinaryFile dst WriteMode $ \d ->
+      hGetContents s >>= hPutStr d
+#else
+copyFile' = copyFile
 #endif

@@ -29,7 +29,7 @@ import FastString           ( unpackFS, unpackLitString, zString )
 import Outputable           ( panic)
 
 import qualified Data.Map as Map
-import System.Directory
+import System.Directory hiding (copyFile)
 import System.FilePath
 import Data.Char
 import Control.Monad
@@ -87,7 +87,7 @@ ppLaTeX title packageStr visible_ifaces odir prologue maybe_style libdir
  = do
    createDirectoryIfMissing True odir
    when (isNothing maybe_style) $
-     copyFile (libdir </> "latex" </> haddockSty) (odir </> haddockSty)
+     copyFile' (libdir </> "latex" </> haddockSty) (odir </> haddockSty)
    ppLaTeXTop title packageStr odir prologue maybe_style visible_ifaces
    mapM_ (ppLaTeXModule title odir) visible_ifaces
 

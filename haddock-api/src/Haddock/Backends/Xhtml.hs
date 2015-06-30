@@ -39,7 +39,7 @@ import Data.Char             ( toUpper )
 import Data.List             ( sortBy, groupBy, intercalate, isPrefixOf )
 import Data.Maybe
 import System.FilePath hiding ( (</>) )
-import System.Directory
+import System.Directory hiding (copyFile)
 import Data.Map              ( Map )
 import qualified Data.Map as Map hiding ( Map )
 import qualified Data.Set as Set hiding ( Set )
@@ -101,8 +101,8 @@ copyHtmlBits :: FilePath -> FilePath -> Themes -> IO ()
 copyHtmlBits odir libdir themes = do
   let
     libhtmldir = joinPath [libdir, "html"]
-    copyCssFile f = copyFile f (combine odir (takeFileName f))
-    copyLibFile f = copyFile (joinPath [libhtmldir, f]) (joinPath [odir, f])
+    copyCssFile f = copyFile' f (combine odir (takeFileName f))
+    copyLibFile f = copyFile' (joinPath [libhtmldir, f]) (joinPath [odir, f])
   mapM_ copyCssFile (cssFiles themes)
   mapM_ copyLibFile [ jsFile, framesFile ]
 
