@@ -73,7 +73,7 @@ import qualified Data.Map as Map hiding ( Map )
 import Data.IORef ( IORef, newIORef, readIORef )
 import Data.List ( isSuffixOf )
 import Data.Maybe ( mapMaybe )
-import System.Directory (copyFile)
+import System.Directory ( copyFile )
 import System.Environment ( getProgName )
 import System.Exit
 import System.IO ( hPutStr, stderr )

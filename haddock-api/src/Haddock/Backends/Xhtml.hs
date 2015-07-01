@@ -18,7 +18,7 @@ module Haddock.Backends.Xhtml (
 ) where
 
 
-import Prelude hiding (div)
+import Prelude hiding ( div )
 
 import Haddock.Backends.Xhtml.Decl
 import Haddock.Backends.Xhtml.DocMarkup
@@ -39,14 +39,14 @@ import Data.Char             ( toUpper )
 import Data.List             ( sortBy, groupBy, intercalate, isPrefixOf )
 import Data.Maybe
 import System.FilePath hiding ( (</>) )
-import System.Directory hiding (copyFile)
+import System.Directory hiding ( copyFile )
 import Data.Map              ( Map )
 import qualified Data.Map as Map hiding ( Map )
 import qualified Data.Set as Set hiding ( Set )
 import Data.Function
 import Data.Ord              ( comparing )
 
-import DynFlags (Language(..))
+import DynFlags ( Language(..) )
 import GHC hiding ( NoLink, moduleInfo )
 import Name
 import Module

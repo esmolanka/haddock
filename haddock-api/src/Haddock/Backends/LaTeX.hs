@@ -18,7 +18,7 @@ module Haddock.Backends.LaTeX (
 import Haddock.Types
 import Haddock.Utils
 import Haddock.GhcUtils
-import Pretty hiding (Doc, quote)
+import Pretty hiding ( Doc, quote )
 import qualified Pretty
 
 import GHC
@@ -29,14 +29,14 @@ import FastString           ( unpackFS, unpackLitString, zString )
 import Outputable           ( panic)
 
 import qualified Data.Map as Map
-import System.Directory hiding (copyFile)
+import System.Directory hiding ( copyFile )
 import System.FilePath
 import Data.Char
 import Control.Monad
 import Data.Maybe
 import Data.List
 
-import Haddock.Doc (combineDocumentation)
+import Haddock.Doc ( combineDocumentation )
 
 -- import Debug.Trace
 
